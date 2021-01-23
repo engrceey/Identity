@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using identity.Data;
+using identity.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,7 +41,18 @@ namespace identity
                 options.Password.RequireNonAlphanumeric = false;
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.SignIn.RequireConfirmedEmail = true;
             });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Signin";
+                options.AccessDeniedPath = "/Identity/AccessDenied";
+            });
+
+            services.Configure<SmtpOptions>(Configuration.GetSection("Smtp"));
+            services.AddSingleton<IEmailSender, EmailSender>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +73,7 @@ namespace identity
 
             app.UseRouting();
 
-            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
