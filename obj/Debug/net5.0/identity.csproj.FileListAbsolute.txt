@@ -70,3 +70,4 @@
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/ref/identity.dll
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/identity.pdb
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/identity.genruntimeconfig.cache
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Identity/Signup.cshtml.g.cs
