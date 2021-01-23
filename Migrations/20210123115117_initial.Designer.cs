@@ -9,8 +9,8 @@ using identity.Data;
 namespace identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210122152043_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210123115117_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
