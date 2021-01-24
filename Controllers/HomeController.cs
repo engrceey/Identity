@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using identity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace identity.Controllers
 {
@@ -23,10 +24,24 @@ namespace identity.Controllers
             return View();
         }
 
+        [Authorize(Roles="Member")]
+        public IActionResult Member()
+        {
+            return View();
+        }
+
+        [Authorize(Roles="Admin")]
+        public IActionResult Admin()
+        {
+            return View();
+        }
+
+
         public IActionResult Privacy()
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
