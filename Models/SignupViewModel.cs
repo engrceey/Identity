@@ -10,5 +10,9 @@ namespace identity.Models
         [Required]
         [DataType(DataType.Password, ErrorMessage = "Password is incorrect")]
         public string Password { get; set; }
+        [Required]
+        public string Role { get; set; }
+        [Required]
+        public string Department { get; set; }
     }
 }
