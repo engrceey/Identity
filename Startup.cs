@@ -51,6 +51,7 @@ namespace identity
             {
                 options.LoginPath = "/Identity/Signin";
                 options.AccessDeniedPath = "/Identity/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromHours(10);
             });
 
             services.Configure<SmtpOptions>(Configuration.GetSection("Smtp"));
