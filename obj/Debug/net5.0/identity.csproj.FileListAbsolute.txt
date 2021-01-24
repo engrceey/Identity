@@ -71,3 +71,8 @@
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/identity.pdb
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/identity.genruntimeconfig.cache
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Identity/Signup.cshtml.g.cs
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Identity/Signin.cshtml.g.cs
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Home/Admin.cshtml.g.cs
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Home/Member.cshtml.g.cs
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Identity/AccessDenied.cshtml.g.cs
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Shared/_Identity.cshtml.g.cs

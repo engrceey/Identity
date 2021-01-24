@@ -15618,8 +15618,28 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/zurum/Desktop/identity/Views/Home/Admin.cshtml",
+      "TargetPath": "Views\\Home\\Admin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/zurum/Desktop/identity/Views/Identity/AccessDenied.cshtml",
+      "TargetPath": "Views\\Identity\\AccessDenied.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/zurum/Desktop/identity/Views/Home/Member.cshtml",
+      "TargetPath": "Views\\Home\\Member.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/zurum/Desktop/identity/Views/Shared/_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/zurum/Desktop/identity/Views/Shared/_Identity.cshtml",
+      "TargetPath": "Views\\Shared\\_Identity.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15640,6 +15660,11 @@
     {
       "FilePath": "/Users/zurum/Desktop/identity/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/zurum/Desktop/identity/Views/Identity/Signin.cshtml",
+      "TargetPath": "Views\\Identity\\Signin.cshtml",
       "FileKind": "mvc"
     }
   ],

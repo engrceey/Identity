@@ -25,8 +25,6 @@ namespace identity.Service
             {
                 await client.SendMailAsync(mailMessage);
             };
-            
-            throw new System.NotImplementedException();
         }
     }
 }
