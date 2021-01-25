@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using identity.Models;
 using identity.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,9 +30,9 @@ namespace identity.Controllers
 
         }
 
-         public IActionResult Signup()
+        public IActionResult Signup()
         {
-            var model = new SignupViewModel() {Role = "Member" };
+            var model = new SignupViewModel() { Role = "Member" };
             return View(model);
         }
 
@@ -44,12 +45,12 @@ namespace identity.Controllers
 
                 if (!(await _roleManager.RoleExistsAsync(model.Role)))
                 {
-                    var role = new IdentityRole {Name = model.Role };
+                    var role = new IdentityRole { Name = model.Role };
                     var roleResult = await _roleManager.CreateAsync(role);
                     if (!roleResult.Succeeded)
                     {
                         var errors = roleResult.Errors.Select(s => s.Description);
-                        ModelState.AddModelError("Role", string.Join("," , errors));
+                        ModelState.AddModelError("Role", string.Join(",", errors));
                         return View(model);
                     }
                 }
@@ -70,7 +71,7 @@ namespace identity.Controllers
                     if (result.Succeeded)
                     {
                         var claim = new Claim("Department", model.Department);
-                        await _userManager.AddClaimAsync(user,claim);
+                        await _userManager.AddClaimAsync(user, claim);
                         var confirmationLink = Url.ActionLink("ConfirmEmail", "Identity", new { userId = user.Id, @token = token });
                         await _userManager.AddToRoleAsync(user, model.Role);
                         await _emailSender.SendEmailAsync("excelcraftman@gmail.com", user.Email, "Please confirm your email address", confirmationLink);
@@ -115,18 +116,18 @@ namespace identity.Controllers
         {
             if (ModelState.IsValid)
             {
-               var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
-               if (result.Succeeded)
-               {
-                   var user = await _userManager.FindByEmailAsync(model.UserName);
+                if (result.Succeeded)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.UserName);
 
-                   if( await _userManager.IsInRoleAsync(user, "Member"))
-                   {
-                       return RedirectToAction("Member", "Home");
-                   }
-                 return RedirectToAction("Index", "Home");
-               }
+                    if (await _userManager.IsInRoleAsync(user, "Member"))
+                    {
+                        return RedirectToAction("Member", "Home");
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
@@ -141,10 +142,48 @@ namespace identity.Controllers
             return RedirectToAction("Signin");
         }
 
+        [Authorize]
+        public async Task<IActionResult> MFASetup()
+        {
+            // Gets the current loggin user
+            var user = await _userManager.GetUserAsync(User);
+            await _userManager.ResetAuthenticatorKeyAsync(user);
+            var token = await _userManager.GetAuthenticatorKeyAsync(user);
+            var model = new MFAViewModel
+            {
+                Token = token,
 
-    public  IActionResult AccessDenied()
+            };
+            
+            return View(model);
+        }
+
+        
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> MFASetup(MFAViewModel model)
+        {
+           if(ModelState.IsValid)
+           {
+               var user = await _userManager.GetUserAsync(User);
+               var result = await _userManager.VerifyTwoFactorTokenAsync(user, _userManager.Options.Tokens.AuthenticatorTokenProvider, model.Code);
+               if(result)
+               {
+                   await _userManager.SetTwoFactorEnabledAsync(user, true);
+               }
+               else
+               {
+                   ModelState.AddModelError("Verify", "Authentication cannot be validated");
+               }
+           } 
+           return View(model);
+        }
+        public IActionResult AccessDenied()
         {
             return View();
-        }   
+        }
+
     }
+
+
 }

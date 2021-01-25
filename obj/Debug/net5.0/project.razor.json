@@ -15653,6 +15653,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/zurum/Desktop/identity/Views/Identity/MFASetup.cshtml",
+      "TargetPath": "Views\\Identity\\MFASetup.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/zurum/Desktop/identity/Views/Identity/Signup.cshtml",
       "TargetPath": "Views\\Identity\\Signup.cshtml",
       "FileKind": "mvc"

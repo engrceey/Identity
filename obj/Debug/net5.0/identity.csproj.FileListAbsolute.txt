@@ -76,3 +76,4 @@
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Home/Member.cshtml.g.cs
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Identity/AccessDenied.cshtml.g.cs
 /Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Shared/_Identity.cshtml.g.cs
+/Users/zurum/Desktop/identity/obj/Debug/net5.0/Razor/Views/Identity/MFASetup.cshtml.g.cs
