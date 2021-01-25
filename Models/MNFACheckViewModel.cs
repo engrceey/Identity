@@ -2,13 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace identity.Models
 {
-    public class MFAViewModel
+    public class MNFACheckViewModel
     {
         [Required]
-        public string Token {get; set;}
-        [Required]
         public string Code { get; set; }
-
-        public string QRCodeUrl {get; set;}
     }
 }

@@ -118,6 +118,11 @@ namespace identity.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
+                if(result.RequiresTwoFactor)
+                {
+                    return RedirectToAction("MFACheck");
+                }
+                else
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.UserName);
@@ -136,6 +141,25 @@ namespace identity.Controllers
             return View(model);
         }
 
+        public IActionResult MFACheck()
+        {
+            return View(new MNFACheckViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MFACheck(MNFACheckViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(model.Code, false, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home", null); 
+                }
+            }
+            return View(model);
+        }
+
         public async Task<IActionResult> Signout()
         {
             await _signInManager.SignOutAsync();
@@ -145,13 +169,17 @@ namespace identity.Controllers
         [Authorize]
         public async Task<IActionResult> MFASetup()
         {
+            const string provider = "aspnetidentity";
             // Gets the current loggin user
             var user = await _userManager.GetUserAsync(User);
             await _userManager.ResetAuthenticatorKeyAsync(user);
             var token = await _userManager.GetAuthenticatorKeyAsync(user);
+
+            var qrcodeUrl = $"otpauth://totp/{provider}:{user.Email}?secret={token}&issuer={provider}&digits=6";
             var model = new MFAViewModel
             {
                 Token = token,
+                QRCodeUrl = qrcodeUrl
 
             };
             
