@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using identity.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace identity.Controllers
@@ -10,6 +12,7 @@ namespace identity.Controllers
     {
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("List")]
         public List<Products> GetList()
         {
